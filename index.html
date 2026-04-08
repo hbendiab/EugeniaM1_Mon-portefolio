@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Eugenia — Portfolio M1</title>
+    <style>
+          /* ===== RESET & BASE ===== */
+          *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+          html { scroll-behavior: smooth; }
+          body {
+                  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                  color: #2d2d2d;
+                  background: #fafafa;
+                  line-height: 1.7;
+          }
+          a { color: inherit; text-decoration: none; }
+
+          /* ===== NAV ===== */
+          nav {
+                  position: fixed;
+                  top: 0; left: 0; right: 0;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  padding: 1rem 2rem;
+                  background: rgba(255,255,255,0.95);
+                  backdrop-filter: blur(8px);
+                  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+                  z-index: 100;
+          }
+          .nav-logo {
+                  font-size: 1.4rem;
+                  font-weight: 700;
+                  color: #a855f7;
+                  letter-spacing: 1px;
+          }
+          .nav-links { display: flex; gap: 2rem; list-style: none; }
+          .nav-links a {
+                  font-size: 0.95rem;
+                  font-weight: 500;
+                  color: #555;
+                  transition: color 0.3s;
+          }
+          .nav-links a:hover { color: #a855f7; }
+
+          /* ===== HERO ===== */
+          #hero {
+                  min-height: 100vh;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  text-align: center;
+                  padding: 6rem 2rem 4rem;
+                  background: linear-gradient(135deg, #f3e8ff 0%, #ede9fe 50%, #fce7f3 100%);
+          }
+          .hero-avatar {
+                  width: 130px;
+                  height: 130px;
+                  border-radius: 50%;
+                  background: linear-gradient(135deg, #a855f7, #ec4899);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 3.5rem;
+                  margin-bottom: 1.5rem;
+                  box-shadow: 0 8px 32px rgba(168,85,247,0.3);
+          }
+          #hero h1 {
+                  font-size: clamp(2rem, 5vw, 3.5rem);
+                  font-weight: 800;
+                  color: #1a1a2e;
+                  margin-bottom: 0.5rem;
+          }
+          #hero .subtitle {
+                  font-size: 1.2rem;
+                  color: #6b21a8;
+                  margin-bottom: 1.5rem;
+                  font-weight: 500;
+          }
+          #hero p {
+                  max-width: 600px;
+                  color: #555;
+                  margin-bottom: 2rem;
+          }
+          .btn {
+                  display: inline-block;
+                  padding: 0.75rem 2rem;
+                  border-radius: 50px;
+                  font-weight: 600;
+                  font-size: 0.95rem;
+                  cursor: pointer;
+                  transition: all 0.3s;
+          }
+          .btn-primary {
+                  background: linear-gradient(135deg, #a855f7, #ec4899);
+                  color: white;
+                  box-shadow: 0 4px 20px rgba(168,85,247,0.4);
+          }
+          .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(168,85,247,0.5); }
+          .btn-outline {
+                  border: 2px solid #a855f7;
+                  color: #a855f7;
+                  margin-left: 1rem;
+          }
+          .btn-outline:hover { background: #a855f7; color: white; }
+
+          /* ===== SECTIONS COMMUNES ===== */
+          section { padding: 5rem 2rem; }
+          .container { max-width: 1000px; margin: 0 auto; }
+          .section-title {
+                  font-size: 2rem;
+                  font-weight: 700;
+                  text-align: center;
+                  margin-bottom: 0.5rem;
+                  color: #1a1a2e;
+          }
+          .section-line {
+                  width: 60px;
+                  height: 4px;
+                  background: linear-gradient(90deg, #a855f7, #ec4899);
+                  border-radius: 2px;
+                  margin: 0 auto 3rem;
+          }
+
+          /* ===== À PROPOS ===== */
+          #about { background: #fff; }
+          .about-grid {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  gap: 3rem;
+                  align-items: center;
+          }
+          .about-text p { color: #555; margin-bottom: 1rem; }
+          .about-info { background: #f3e8ff; border-radius: 16px; padding: 2rem; }
+          .about-info ul { list-style: none; }
+          .about-info li {
+                  padding: 0.6rem 0;
+                  border-bottom: 1px solid #ede9fe;
+                  color: #555;
+                  font-size: 0.95rem;
+          }
+          .about-info li:last-child { border-bottom: none; }
+          .about-info li span { font-weight: 600; color: #6b21a8; margin-right: 0.5rem; }
+
+          /* ===== PROJETS ===== */
+          #projects { background: #fafafa; }
+          .projects-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                  gap: 2rem;
+          }
+          .card {
+                  background: white;
+                  border-radius: 16px;
+                  overflow: hidden;
+                  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                  transition: transform 0.3s, box-shadow 0.3s;
+          }
+          .card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(168,85,247,0.2); }
+          .card-img {
+                  height: 160px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 3rem;
+                  background: linear-gradient(135deg, #f3e8ff, #fce7f3);
+          }
+          .card-body { padding: 1.5rem; }
+          .card-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a2e; }
+          .card-body p { font-size: 0.9rem; color: #777; margin-bottom: 1rem; }
+          .card-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+          .tag {
+                  background: #f3e8ff;
+                  color: #6b21a8;
+                  padding: 0.2rem 0.75rem;
+                  border-radius: 50px;
+                  font-size: 0.75rem;
+                  font-weight: 600;
+          }
+
+          /* ===== COMPÉTENCES ===== */
+          #skills { background: #fff; }
+          .skills-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                  gap: 1.5rem;
+          }
+          .skill-item {
+                  text-align: center;
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  background: #f3e8ff;
+                  transition: transform 0.3s;
+          }
+          .skill-item:hover { transform: scale(1.05); }
+          .skill-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+          .skill-item h4 { font-weight: 600; color: #1a1a2e; margin-bottom: 0.5rem; }
+          .skill-bar { height: 6px; background: #ede9fe; border-radius: 3px; overflow: hidden; }
+          .skill-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #ec4899); border-radius: 3px; }
+
+          /* ===== CONTACT ===== */
+          #contact { background: linear-gradient(135deg, #1a1a2e, #2d1b69); color: white; }
+          #contact .section-title { color: white; }
+          .contact-wrapper {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  gap: 3rem;
+                  align-items: start;
+          }
+          .contact-info p { color: #c4b5fd; margin-bottom: 1.5rem; }
+          .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+          .contact-link {
+                  display: flex;
+                  align-items: center;
+                  gap: 0.75rem;
+                  color: #c4b5fd;
+                  font-size: 0.95rem;
+                  transition: color 0.3s;
+          }
+          .contact-link:hover { color: #f0abfc; }
+          form { display: flex; flex-direction: column; gap: 1rem; }
+          form input, form textarea {
+                  padding: 0.9rem 1.2rem;
+                  border-radius: 10px;
+                  border: 1px solid rgba(255,255,255,0.15);
+                  background: rgba(255,255,255,0.08);
+                  color: white;
+                  font-size: 0.95rem;
+                  font-family: inherit;
+                  outline: none;
+                  transition: border 0.3s;
+          }
+          form input::placeholder, form textarea::placeholder { color: rgba(255,255,255,0.4); }
+          form input:focus, form textarea:focus { border-color: #a855f7; }
+          form textarea { resize: vertical; min-height: 120px; }
+          form button {
+                  border: none;
+                  font-family: inherit;
+          }
+
+          /* ===== FOOTER ===== */
+          footer {
+                  background: #0f0f1a;
+                  color: #888;
+                  text-align: center;
+                  padding: 1.5rem;
+                  font-size: 0.875rem;
+          }
+          footer span { color: #a855f7; }
+
+          /* ===== RESPONSIVE ===== */
+          @media (max-width: 768px) {
+                  .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
+                  .nav-links { display: none; }
+          }
+        </style>
+  </head>
+  <body>
+
+      <!-- NAVIGATION -->
+      <nav>
+            <div class="nav-logo">Eugenia ✦</div>div>
+            <ul class="nav-links">
+                    <li><a href="#about">À propos</a>a></li>
+                  <li><a href="#projects">Projets</a>a></li>
+                  <li><a href="#skills">Compétences</a>a></li>
+                  <li><a href="#contact">Contact</a>a></li>
+            </ul>ul>
+      </nav>
+  
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-avatar">🎨</div>div>
+        <h1>Eugenia</h1>
+        <p class="subtitle">Étudiante Master 1 — Design & Développement Web</p>p>
+        <p>Passionnée par la création d'expériences visuelles et numériques, je combine créativité et technique pour donner vie à des projets uniques.</p>
+        <div>
+                <a href="#projects" class="btn btn-primary">Voir mes projets</a>a>
+                <a href="#contact" class="btn btn-outline">Me contacter</a>a>
+        </div>
+    </section>section>
+
+      <!-- À PROPOS -->
+      <section id="about">
+            <div class="container">
+                    <h2 class="section-title">À propos</h2>
+                    <div class="section-line"></div>
+                    <div class="about-grid">
+                              <div class="about-text">
+                                          <p>Étudiante en Master 1, je me passionne pour l'intersection entre le design graphique et le développement web. Chaque projet est pour moi l'occasion d'explorer de nouvelles idées et de repousser mes limites créatives.</p>p>
+                                          <p>Mon approche combine une sensibilité artistique développée au fil de mes études avec des compétences techniques en constante évolution. J'aime concevoir des interfaces à la fois belles, accessibles et fonctionnelles.</p>p>
+                                          <a href="#contact" class="btn btn-primary" style="margin-top:1rem; display:inline-block;">Me contacter</a>a>
+                              </div>
+                              <div class="about-info">
+                                          <ul>
+                                                        <li><span>📍 Localisation :</span> France</li>
+                                                      <li><span>🎓 Formation :</span> Master 1</li>
+                                                      <li><span>💼 Disponibilité :</span>span> Stage / Alternance</li>
+                                                      <li><span>🌐 Langues :</span> Français, Anglais</li>
+                                                      <li><span>✉️ Email :</span> eugenia@email.com</li>
+                                          </ul>
+                              </div>
+                    </div>
+            </div>
+      </section>section>
+  
+    <!-- PROJETS -->
+    <section id="projects">
+        <div class="container">
+              <h2 class="section-title">Mes projets</h2>
+              <div class="section-line"></div>
+              <div class="projects-grid">
+              
+                      <div class="card">
+                                <div class="card-img">🖥️</div>
+                                <div class="card-body">
+                                            <h3>Projet 1 — Titre à compléter</h3>
+                                            <p>Description du projet : contexte, objectifs, résultats obtenus.</p>
+                                            <div class="card-tags">
+                                                          <span class="tag">HTML</span>
+                                                          <span class="tag">CSS</span>
+                                            </div>
+                                </div>
+                      </div>
+              
+                      <div class="card">
+                                <div class="card-img">📐</div>
+                                <div class="card-body">
+                                            <h3>Projet 2 — Titre à compléter</h3>
+                                            <p>Description du projet : contexte, objectifs, résultats obtenus.</p>
+                                            <div class="card-tags">
+                                                          <span class="tag">Figma</span>
+                                                          <span class="tag">UX/UI</span>
+                                            </div>
+                                </div>
+                      </div>
+              
+                      <div class="card">
+                                <div class="card-img">🎬</div>
+                                <div class="card-body">
+                                            <h3>Projet 3 — Titre à compléter</h3>
+                                            <p>Description du projet : contexte, objectifs, résultats obtenus.</p>
+                                            <div class="card-tags">
+                                                          <span class="tag">Motion</span>
+                                                          <span class="tag">Design</span>
+                                            </div>
+                                </div>
+                      </div>
+              
+              </div>
+        </div>
+    </section>section>
+  
+    <!-- COMPÉTENCES -->
+    <section id="skills">
+        <div class="container">
+              <h2 class="section-title">Compétences</h2>
+              <div class="section-line"></div>
+              <div class="skills-grid">
+              
+                      <div class="skill-item">
+                                <div class="skill-icon">🌐</div>
+                                <h4>HTML / CSS</h4>
+                                <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+                      </div>
+              
+                      <div class="skill-item">
+                                <div class="skill-icon">⚡</div>
+                                <h4>JavaScript</h4>
+                                <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+                      </div>
+              
+                      <div class="skill-item">
+                                <div class="skill-icon">🎨</div>
+                                <h4>Figma</h4>
+                                <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+                      </div>
+              
+                      <div class="skill-item">
+                                <div class="skill-icon">🖼️</div>
+                                <h4>Photoshop</h4>
+                                <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+                      </div>
+              
+                      <div class="skill-item">
+                                <div class="skill-icon">✏️</div>
+                                <h4>Illustrator</h4>
+                                <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+                      </div>
+              
+                      <div class="skill-item">
+                                <div class="skill-icon">📱</div>
+                                <h4>Design Responsive</h4>
+                                <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+                      </div>
+              
+              </div>
+        </div>
+    </section>section>
+  
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+              <h2 class="section-title">Contact</h2>
+              <div class="section-line" style="background: linear-gradient(90deg, #c084fc, #f472b6);"></div>
+              <div class="contact-wrapper">
+                      <div class="contact-info">
+                                <p>Une question, une opportunité de collaboration ou juste envie d'échanger ? N'hésitez pas à me laisser un message !</p>
+                                <div class="contact-links">
+                                            <a href="mailto:eugenia@email.com" class="contact-link">📧 eugenia@email.com</a>a>
+                                            <a href="https://github.com/hbendiab" class="contact-link" target="_blank">🐙 GitHub</a>a>
+                                            <a href="#" class="contact-link">💼 LinkedIn</a>a>
+                                </div>
+                      </div>
+                      <form>
+                                  <input type="text" placeholder="Votre nom" required />
+                                  <input type="email" placeholder="Votre email" required />
+                                  <input type="text" placeholder="Sujet" />
+                                  <textarea placeholder="Votre message..."></textarea>
+                                  <button type="submit" class="btn btn-primary">Envoyer le message ✉️</button>button>
+                      </form>
+              </div>
+        </div>
+    </section>section>
+
+      <!-- FOOTER -->
+      <footer>
+            <p>© 2025–2026 <span>Eugenia</span> — Portfolio Master 1. Fait avec <span>♥</span></p>
+      </footer>
+  
+  </body>
+</html>html></span></span></p>
+      </footer>
+                      </form></p></p></h3></span></span></li></li></span></span></li>
+                                          </ul>
+        </div></p></h1></li></li>
+      </nav>
+  </body>
+    </style></title>
+  </head>
